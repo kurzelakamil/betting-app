@@ -2,4 +2,8 @@ apply plugin: 'java'
 
 dependencies{
     compile project(":config-server")
+    compile project(":api-gateway")
+    compile project(":discovery-server")
+    compile project(":authorization-server")
+    compile project(":user-service")
 }

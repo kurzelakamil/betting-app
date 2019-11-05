@@ -1,13 +1,14 @@
 version: '3.3'
 services:
   authorization-database:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=${AUTH_DB}
-      - MYSQL_USER=${AUTH_DB_USER}
-      - MYSQL_PASSWORD=${AUTH_DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${AUTH_DB_PASSWORD}
+    image: postgres
     volumes:
-      - ./data/auth:/var/lib/mysql/data/db
+      - auth-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${AUTH_DB}
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+volumes:
+  auth-data:

@@ -4,3 +4,12 @@
 [submodule "config-server"]
 	path = config-server
 	url = git@github.com:kurzelakamil/config-server.git
+[submodule "config-files"]
+	path = config-files
+	url = git@github.com:kurzelakamil/config-files.git
+[submodule "discovery-server"]
+	path = discovery-server
+	url = git@github.com:kurzelakamil/discovery-server.git
+[submodule "authorization-server"]
+	path = authorization-server
+	url = git@github.com:kurzelakamil/authorization-server.git
