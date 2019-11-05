@@ -1,0 +1,6 @@
+rootProject.name = 'betting-app'
+
+include ':config-server'
+include ':discovery-server'
+include ':api-gateway'
+

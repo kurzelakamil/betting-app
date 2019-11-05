@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  authorization-database:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${AUTH_DB}
+      - MYSQL_USER=${AUTH_DB_USER}
+      - MYSQL_PASSWORD=${AUTH_DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${AUTH_DB_PASSWORD}
+    volumes:
+      - ./data/auth:/var/lib/mysql/data/db
