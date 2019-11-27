@@ -14,5 +14,5 @@
 	path = authorization-server
 	url = git@github.com:kurzelakamil/authorization-server.git
 [submodule "user-service"]
-    path = user-service
-    url = git@github.com:kurzelakamil/user-service.git
+	path = user-service
+	url = git@github.com:kurzelakamil/user-service.git
