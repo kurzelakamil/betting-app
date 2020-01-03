@@ -16,3 +16,6 @@
 [submodule "user-service"]
 	path = user-service
 	url = git@github.com:kurzelakamil/user-service.git
+[submodule "saga-orchestrator"]
+	path = saga-orchestrator
+	url = git@github.com:kurzelakamil/saga-orchestrator.git
