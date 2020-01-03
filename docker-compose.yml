@@ -1,14 +1,33 @@
 version: '3.3'
 services:
+  rabbit-mq:
+    image: bitnami/rabbitmq:latest
+    ports:
+      - "5672:5672"
+    environment:
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
   authorization-database:
     image: postgres
     volumes:
       - auth-data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_DB: ${AUTH_DB}
       POSTGRES_USER: ${AUTH_DB_USER}
       POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+  user-database:
+    image: postgres
+    volumes:
+      - user-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${USER_DB}
+      POSTGRES_USER: ${USER_DB_USER}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+
 volumes:
   auth-data:
+  user-data:

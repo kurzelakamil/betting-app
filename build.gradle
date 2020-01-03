@@ -6,4 +6,5 @@ dependencies{
     compile project(":discovery-server")
     compile project(":authorization-server")
     compile project(":user-service")
+    compile project(":saga-orchestrator")
 }

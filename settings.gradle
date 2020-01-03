@@ -5,4 +5,5 @@ include ':discovery-server'
 include ':api-gateway'
 include ':authorization-server'
 include ':user-service'
+include ':saga-orchestrator'
 
