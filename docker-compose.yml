@@ -1,12 +1,102 @@
 version: '3.3'
 services:
+
+  api-gateway:
+    build: ./api-gateway/docker
+    ports:
+      - "8080:8080"
+    environment:
+      CONFIG_SERVER: config-server
+      CONFIG_SERVER_PORT: 8888
+      DISCOVERY_SERVER: discovery-server
+      DISCOVERY_SERVER_PORT: 8089
+      API_GATEWAY_PORT: 8080
+      AUTHORIZATION_SERVER: authorization-server
+      AUTHORIZATION_SERVER_PORT: 7070
+      USER_SERVICE: user-service
+      USER_SERVICE_PORT: 8010
+      SLEEP_TIME: 5
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+      ENCRYPT_KEY: ${ENCRYPT_KEY}
+      #LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
+
+  config-server:
+    build: ./config-server/docker
+    ports:
+      - "8888:8888"
+    environment:
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+      ENCRYPT_KEY: ${ENCRYPT_KEY}
+      CONFIG_SERVER_PORT: 8888
+
+  discovery-server:
+    build: ./discovery-server/docker
+    ports:
+      - "8089:8089"
+    environment:
+      CONFIG_SERVER: config-server
+      CONFIG_SERVER_PORT: 8888
+      SLEEP_TIME: 5
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+      DISCOVERY_SERVER: discovery-server
+      DISCOVERY_SERVER_PORT: 8089
+
+  authorization-server:
+    build: ./authorization-server/docker
+    ports:
+      - "7070:7070"
+    environment:
+      CONFIG_SERVER: config-server
+      CONFIG_SERVER_PORT: 8888
+      DISCOVERY_SERVER: discovery-server
+      DISCOVERY_SERVER_PORT: 8089
+      AUTHORIZATION_DB: authorization-database
+      AUTHORIZATION_DB_PORT: 5432
+      AUTHORIZATION_SERVER_PORT: 7070
+      API_GATEWAY: api-gateway
+      API_GATEWAY_PORT: 8080
+      RABBIT: rabbit-mq
+      RABBIT_PORT: 5672
+      SLEEP_TIME: 5
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+      ENCRYPT_KEY: ${ENCRYPT_KEY}
+      RABBIT_USER: ${RABBIT_USER}
+      RABBIT_PASSWORD: ${RABBIT_PASSWORD}
+      #LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
+
+  user-service:
+    build: ./user-service/docker
+    ports:
+      - "8010:8010"
+    environment:
+      CONFIG_SERVER: config-server
+      CONFIG_SERVER_PORT: 8888
+      DISCOVERY_SERVER: discovery-server
+      DISCOVERY_SERVER_PORT: 8089
+      USER_DB: user-database
+      USER_DB_PORT: 5432
+      SLEEP_TIME: 5
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASSWORD: ${CONFIG_PASSWORD}
+      ENCRYPT_KEY: ${ENCRYPT_KEY}
+      RABBIT_USER: ${RABBIT_USER}
+      RABBIT_PASSWORD: ${RABBIT_PASSWORD}
+      USER_SERVICE_PORT: 8010
+      RABBIT: rabbit-mq
+      RABBIT_PORT: 5672
+
+
   rabbit-mq:
     image: bitnami/rabbitmq:latest
     ports:
       - "5672:5672"
     environment:
-      RABBITMQ_USERNAME: admin
-      RABBITMQ_PASSWORD: admin
+      RABBITMQ_USERNAME: ${RABBIT_USER}
+      RABBITMQ_PASSWORD: ${RABBIT_PASSWORD}
   authorization-database:
     image: postgres
     volumes:
@@ -31,3 +121,4 @@ services:
 volumes:
   auth-data:
   user-data:
+
